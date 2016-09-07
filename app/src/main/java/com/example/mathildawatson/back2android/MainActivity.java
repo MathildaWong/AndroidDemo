@@ -13,7 +13,11 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnTest = null;
-    private EditText etTel = null;
+    private EditText phoneNumber = null;
+
+    public String getPhoneNumber(){
+       return phoneNumber.getText().toString();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnTest = (Button) findViewById(R.id.btn_tel);
-        etTel = (EditText) findViewById(R.id.et_tel);
+        phoneNumber = (EditText) findViewById(R.id.et_tel);
         btnTest.setOnClickListener(new MyListener());
     }
 
@@ -36,13 +40,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void callPhone(){
-        String number = etTel.getText().toString();
-        if(!TextUtils.isEmpty(number)) {
+        if(!TextUtils.isEmpty(getPhoneNumber())) {
             Intent intent = new Intent();
             intent.setAction("android.intent.action.CALL");
-            intent.setData(Uri.parse("tel:" + number));
+            intent.setData(Uri.parse("tel:" + getPhoneNumber()));
             //startActivity(intent);
-            Toast.makeText(MainActivity.this, "the number " + number , Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "the number " + getPhoneNumber() , Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(MainActivity.this, "Please input the number", Toast.LENGTH_SHORT).show();
         }
